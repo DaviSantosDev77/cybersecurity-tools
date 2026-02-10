@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Davi Pereira | Cyber Security Portfolio</title>
+    <style>
+        :root {
+            --primary-color: #00FF00;
+            --bg-color: #000000;
+            --card-bg: rgba(0, 20, 0, 0.8);
+            --font-main: 'Courier New', Courier, monospace;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--primary-color);
+            font-family: var(--font-main);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Matrix Canvas Background */
+        #matrix-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: -1;
+        }
+
+        /* Container Layout */
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Header / Hero Section */
+        header {
+            text-align: center;
+            padding: 4rem 0;
+            border-bottom: 2px solid var(--primary-color);
+            margin-bottom: 3rem;
+            background: rgba(0, 0, 0, 0.7);
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            text-transform: uppercase;
+            letter-spacing: 5px;
+            margin-bottom: 1rem;
+            text-shadow: 0 0 10px var(--primary-color);
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            font-weight: bold;
+            border-right: 3px solid var(--primary-color);
+            white-space: nowrap;
+            overflow: hidden;
+            display: inline-block;
+            animation: typing 3.5s steps(40, end), blink-caret .75s step-end infinite;
+        }
+
+        @keyframes typing {
+            from { width: 0 }
+            to { width: 100% }
+        }
+
+        @keyframes blink-caret {
+            from, to { border-color: transparent }
+            50% { border-color: var(--primary-color); }
+        }
+
+        /* Sections */
+        section {
+            margin-bottom: 4rem;
+            background: rgba(0, 10, 0, 0.85);
+            padding: 2rem;
+            border: 1px solid var(--primary-color);
+            box-shadow: 0 0 15px rgba(0, 255, 0, 0.2);
+        }
+
+        h2 {
+            border-bottom: 1px solid var(--primary-color);
+            display: inline-block;
+            margin-bottom: 1.5rem;
+            padding-bottom: 5px;
+            text-transform: uppercase;
+        }
+
+        /* Projects Grid */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 1.5rem;
+        }
+
+        .project-link {
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+
+        .project-card {
+            border: 1px solid var(--primary-color);
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            background: var(--card-bg);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-card:hover {
+            background: rgba(0, 40, 0, 0.9);
+            box-shadow: 0 0 25px var(--primary-color), inset 0 0 10px var(--primary-color);
+            transform: translateY(-5px);
+            border-color: #fff; /* Slight highlight on border */
+        }
+
+        .project-card h3 {
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            color: var(--primary-color);
+        }
+
+        .project-card p {
+            font-size: 0.9rem;
+        }
+
+        /* Footer / Links */
+        footer {
+            text-align: center;
+            padding: 3rem 0;
+            border-top: 2px solid var(--primary-color);
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .social-links a {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: bold;
+            border: 1px solid var(--primary-color);
+            padding: 0.5rem 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            background: var(--primary-color);
+            color: var(--bg-color);
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            h1 { font-size: 2rem; }
+            .subtitle { font-size: 0.9rem; white-space: normal; border-right: none; animation: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <canvas id="matrix-canvas"></canvas>
+
+    <div class="container">
+        <header>
+            <h1>Davi Pereira</h1>
+            <div class="subtitle">Cyber Security Analyst | Python Developer | Blue Team</div>
+        </header>
+
+        <section id="about">
+            <h2>> /Sobre_Mim</h2>
+            <p>Focado em defesa cibernética, automação com Python e operações de SOC. Especialista em identificar vulnerabilidades e implementar camadas de proteção robustas.</p>
+        </section>
+
+        <section id="projects">
+            <h2>> /Projetos</h2>
+            <div class="projects-grid">
+                <a href="#" class="project-link">
+                    <div class="project-card">
+                        <h3>Finanpy</h3>
+                        <p>Sistema de gestão financeira automatizado com Python.</p>
+                    </div>
+                </a>
+                <a href="#" class="project-link">
+                    <div class="project-card">
+                        <h3>Network Scanner</h3>
+                        <p>Ferramenta de reconhecimento de rede e descoberta de ativos.</p>
+                    </div>
+                </a>
+                <a href="#" class="project-link">
+                    <div class="project-card">
+                        <h3>Vuln Dashboard</h3>
+                        <p>Painel de visualização de vulnerabilidades em tempo real.</p>
+                    </div>
+                </a>
+            </div>
+        </section>
+
+        <footer>
+            <ul class="social-links">
+                <li><a href="https://github.com" target="_blank">[ GITHUB ]</a></li>
+                <li><a href="https://linkedin.com" target="_blank">[ LINKEDIN ]</a></li>
+            </ul>
+        </footer>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('matrix-canvas');
+        const ctx = canvas.getContext('2d');
+
+        function resize() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+
+        window.addEventListener('resize', resize);
+        resize();
+
+        const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%^&*()*&^%';
+        const fontSize = 16;
+        let columns = canvas.width / fontSize;
+
+        let drops = [];
+        for (let x = 0; x < columns; x++) {
+            drops[x] = 1;
+        }
+
+        function draw() {
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            ctx.fillStyle = '#00FF00';
+            ctx.font = fontSize + 'px courier';
+
+            for (let i = 0; i < drops.length; i++) {
+                const text = characters.charAt(Math.floor(Math.random() * characters.length));
+                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+                if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+                    drops[i] = 0;
+                }
+                drops[i]++;
+            }
+        }
+
+        setInterval(draw, 33);
+    </script>
+</body>
+</html>
