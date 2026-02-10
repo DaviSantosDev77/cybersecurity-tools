@@ -34,7 +34,6 @@
             z-index: -1;
         }
 
-        /* Container Layout */
         .container {
             max-width: 900px;
             margin: 0 auto;
@@ -43,7 +42,6 @@
             z-index: 1;
         }
 
-        /* Header / Hero Section */
         header {
             text-align: center;
             padding: 4rem 0;
@@ -53,34 +51,19 @@
         }
 
         h1 {
-            font-size: 3.5rem;
+            font-size: 2.5rem;
             text-transform: uppercase;
-            letter-spacing: 5px;
+            letter-spacing: 3px;
             margin-bottom: 1rem;
             text-shadow: 0 0 10px var(--primary-color);
         }
 
         .subtitle {
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             font-weight: bold;
-            border-right: 3px solid var(--primary-color);
-            white-space: nowrap;
-            overflow: hidden;
             display: inline-block;
-            animation: typing 3.5s steps(40, end), blink-caret .75s step-end infinite;
         }
 
-        @keyframes typing {
-            from { width: 0 }
-            to { width: 100% }
-        }
-
-        @keyframes blink-caret {
-            from, to { border-color: transparent }
-            50% { border-color: var(--primary-color); }
-        }
-
-        /* Sections */
         section {
             margin-bottom: 4rem;
             background: rgba(0, 10, 0, 0.85);
@@ -93,11 +76,9 @@
             border-bottom: 1px solid var(--primary-color);
             display: inline-block;
             margin-bottom: 1.5rem;
-            padding-bottom: 5px;
             text-transform: uppercase;
         }
 
-        /* Projects Grid */
         .projects-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -117,39 +98,33 @@
             transition: all 0.3s ease;
             cursor: pointer;
             background: var(--card-bg);
-            position: relative;
-            overflow: hidden;
         }
 
         .project-card:hover {
             background: rgba(0, 40, 0, 0.9);
-            box-shadow: 0 0 25px var(--primary-color), inset 0 0 10px var(--primary-color);
+            box-shadow: 0 0 25px var(--primary-color);
             transform: translateY(-5px);
-            border-color: #fff; /* Slight highlight on border */
         }
 
         .project-card h3 {
             margin-bottom: 1rem;
-            text-transform: uppercase;
             color: var(--primary-color);
+            text-decoration: underline;
         }
 
-        .project-card p {
-            font-size: 0.9rem;
-        }
-
-        /* Footer / Links */
         footer {
             text-align: center;
             padding: 3rem 0;
             border-top: 2px solid var(--primary-color);
+            margin-top: 2rem;
         }
 
         .social-links {
             display: flex;
             justify-content: center;
-            gap: 2rem;
+            gap: 1.5rem;
             list-style: none;
+            flex-wrap: wrap;
         }
 
         .social-links a {
@@ -159,17 +134,19 @@
             border: 1px solid var(--primary-color);
             padding: 0.5rem 1rem;
             transition: all 0.3s ease;
+            display: inline-block;
         }
 
         .social-links a:hover {
             background: var(--primary-color);
             color: var(--bg-color);
+            box-shadow: 0 0 15px var(--primary-color);
         }
 
-        /* Responsive */
         @media (max-width: 600px) {
-            h1 { font-size: 2rem; }
-            .subtitle { font-size: 0.9rem; white-space: normal; border-right: none; animation: none; }
+            h1 { font-size: 1.8rem; }
+            .subtitle { font-size: 0.9rem; }
+            .social-links { gap: 1rem; }
         }
     </style>
 </head>
@@ -180,47 +157,52 @@
     <div class="container">
         <header>
             <h1>Davi Pereira</h1>
-            <div class="subtitle">Cyber Security Analyst | Python Developer | Blue Team</div>
+            <div class="subtitle">Cyber Security Student | Python Developer | Blue Team Focus</div>
         </header>
 
         <section id="about">
             <h2>> /Sobre_Mim</h2>
-            <p>Focado em defesa cibernética, automação com Python e operações de SOC. Especialista em identificar vulnerabilidades e implementar camadas de proteção robustas.</p>
+            <p>Estudante do 3º Semestre de Análise e Desenvolvimento de Sistemas. Focado em defesa cibernética, automação com Python e operações de segurança. Buscando aplicar conhecimentos técnicos em missões reais de proteção e inteligência.</p>
         </section>
 
         <section id="projects">
-            <h2>> /Projetos</h2>
+            <h2>> /Meus_Projetos</h2>
             <div class="projects-grid">
-                <a href="#" class="project-link">
+                <a href="https://github.com/DaviSantosDev77/cybersecurity-tools" target="_blank" class="project-link">
                     <div class="project-card">
-                        <h3>Finanpy</h3>
-                        <p>Sistema de gestão financeira automatizado com Python.</p>
+                        <h3>🔒 Validador de Senhas</h3>
+                        <p>Ferramenta em Python com interface gráfica para análise de entropia e força de credenciais, focada em políticas de segurança.</p>
                     </div>
                 </a>
-                <a href="#" class="project-link">
+                
+                <a href="https://github.com/DaviSantosDev77/cybersecurity-tools" target="_blank" class="project-link">
                     <div class="project-card">
-                        <h3>Network Scanner</h3>
-                        <p>Ferramenta de reconhecimento de rede e descoberta de ativos.</p>
+                        <h3>🤖 Automação de Estudos</h3>
+                        <p>Algoritmo que define prioridades de estudo baseado em estatísticas de editais (Foco em PRF/PF).</p>
                     </div>
                 </a>
-                <a href="#" class="project-link">
+
+                <a href="https://github.com/DaviSantosDev77/cybersecurity-tools" target="_blank" class="project-link">
                     <div class="project-card">
-                        <h3>Vuln Dashboard</h3>
-                        <p>Painel de visualização de vulnerabilidades em tempo real.</p>
+                        <h3>🕷️ Web Quiz Hacker</h3>
+                        <p>Aplicação Web (Flask) para treinamento de questões de concurso com interface temática Cyberpunk.</p>
                     </div>
                 </a>
             </div>
         </section>
 
         <footer>
+            <p style="margin-bottom: 1rem;">// CONECTE-SE COMIGO:</p>
             <ul class="social-links">
-                <li><a href="https://github.com" target="_blank">[ GITHUB ]</a></li>
-                <li><a href="https://linkedin.com" target="_blank">[ LINKEDIN ]</a></li>
+                <li><a href="https://github.com/DaviSantosDev77" target="_blank">[ GITHUB ]</a></li>
+                <li><a href="https://www.linkedin.com/in/davi-santos-9b08792b3" target="_blank">[ LINKEDIN ]</a></li>
+                <li><a href="mailto:davi.flafla@gmail.com">[ E-MAIL ]</a></li>
             </ul>
         </footer>
     </div>
 
     <script>
+        // Efeito Matrix
         const canvas = document.getElementById('matrix-canvas');
         const ctx = canvas.getContext('2d');
 
@@ -228,38 +210,29 @@
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
         }
-
         window.addEventListener('resize', resize);
         resize();
 
-        const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%^&*()*&^%';
-        const fontSize = 16;
-        let columns = canvas.width / fontSize;
-
-        let drops = [];
-        for (let x = 0; x < columns; x++) {
-            drops[x] = 1;
-        }
+        const characters = '01ABCDEFGHIJKLMNOPQRSTUVWXYZ@#$%&';
+        const fontSize = 14;
+        const columns = canvas.width / fontSize;
+        const drops = Array(Math.floor(columns)).fill(1);
 
         function draw() {
             ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
             ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-            ctx.fillStyle = '#00FF00';
-            ctx.font = fontSize + 'px courier';
+            ctx.fillStyle = '#0F0'; // Verde Matrix
+            ctx.font = fontSize + 'px monospace';
 
             for (let i = 0; i < drops.length; i++) {
                 const text = characters.charAt(Math.floor(Math.random() * characters.length));
                 ctx.fillText(text, i * fontSize, drops[i] * fontSize);
-
-                if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
-                    drops[i] = 0;
-                }
+                if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) drops[i] = 0;
                 drops[i]++;
             }
         }
-
         setInterval(draw, 33);
     </script>
 </body>
 </html>
+
