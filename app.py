@@ -1,9 +1,25 @@
 from flask import Flask, render_template, request, jsonify
 import random
+import os
+import google.generativeai as genai
+import markdown
 
 app = Flask(__name__)
 
-# --- SEU BANCO DE QUESTÕES COMPLETO ---
+# --- CONFIGURAÇÃO DA IA (MODO PROFISSIONAL) ---
+# Ele pega a chave que você cadastrou no Render. Se não tiver, usa a sua fixa.
+API_KEY = os.getenv("API_KEY", "AIzaSyDhqV6Z5Y4XQFiaUjzGVyxxSgpQ_uuyuT8")
+
+try:
+    genai.configure(api_key=API_KEY)
+    # Usando o modelo que estava na sua lista e é mais estável
+    model = genai.GenerativeModel('gemini-2.0-flash-lite')
+    ia_ativa = True
+except Exception as e:
+    print(f"Erro ao iniciar IA: {e}")
+    ia_ativa = False
+
+# --- SEU BANCO DE QUESTÕES ---
 questoes = [
     {
         "id": 1,
@@ -89,16 +105,12 @@ questoes = [
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
-    # Lógica simples pra garantir que funciona
-    if len(questoes) >= 5:
-        questoes_para_exibir = random.sample(questoes, 5)
-    else:
-        questoes_para_exibir = questoes
+    # Sorteio de questões
+    questoes_para_exibir = random.sample(questoes, 5) if len(questoes) >= 5 else questoes
     
     if request.method == 'POST':
         id_respondido = int(request.form.get('id_questao'))
         resposta_usuario = request.form.get('resposta')
-        
         questao_atual = next((q for q in questoes if q['id'] == id_respondido), None)
         
         if questao_atual:
@@ -112,14 +124,21 @@ def index():
 
     return render_template('quiz.html', questoes=questoes_para_exibir)
 
-# --- ROTA DE SEGURANÇA ---
-# Se clicar no botão IA, ele avisa que está em manutenção em vez de quebrar
+# --- ROTA DA IA (ATIVADA) ---
 @app.route('/explicar_ia', methods=['POST'])
 def explicar_ia():
-    return jsonify({
-        "explicacao": "⚠️ <strong>SISTEMA EM MANUTENÇÃO:</strong> A conexão com o QG (Google AI) está instável no momento. Tente novamente mais tarde ou consulte o gabarito oficial abaixo."
-    })
+    if not ia_ativa:
+        return jsonify({"explicacao": "⚠️ IA temporariamente offline."})
+
+    dados = request.json
+    prompt = f"Explique de forma curta e operacional por que a resposta '{dados.get('correta')}' está correta para a questão: {dados.get('pergunta')}"
+    
+    try:
+        response = model.generate_content(prompt)
+        html = markdown.markdown(response.text)
+        return jsonify({"explicacao": html})
+    except Exception as e:
+        return jsonify({"explicacao": "⚠️ Limite de requisições atingido. Tente em 1 minuto."})
 
 if __name__ == '__main__':
-    # Debug=True é o que faz aparecer o erro no navegador se der ruim
     app.run(debug=True)
