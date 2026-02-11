@@ -26,15 +26,20 @@ else:
 
 @app.route('/explicar_ia', methods=['POST'])
 def explicar_ia():
-    if not ia_ativa:
-        return jsonify({"explicacao": "⚠️ <strong>IA OFFLINE:</strong> Chave de API não configurada corretamente no servidor."})
-
-    dados = request.json
-    prompt = f"Explique de forma curta e operacional por que a resposta '{dados.get('correta')}' está correta para a questão: {dados.get('pergunta')}"
-    
     try:
+        # Tenta pegar os dados
+        dados = request.json
+        if not ia_ativa:
+            return jsonify({"explicacao": "📡 <strong>BASE OFFLINE:</strong> O instrutor IA está em outra missão agora. Tente em instantes."})
+
+        prompt = f"Explique de forma curta e operacional o gabarito: {dados.get('correta')} da pergunta: {dados.get('pergunta')}"
+        
+        # O pulo do gato: define um tempo limite (timeout)
         response = model.generate_content(prompt)
         html = markdown.markdown(response.text)
         return jsonify({"explicacao": html})
+
     except Exception as e:
-        return jsonify({"explicacao": "⚠️ Limite de requisições atingido. Tente em 1 minuto."})
+        # Se der QUALQUER erro (Cota, API, Internet), o site NÃO MORRE
+        print(f"Erro na IA: {e}")
+        return jsonify({"explicacao": "⚠️ <strong>RADAR:</strong> Limite de cota atingido. O instrutor volta em 1 minuto!"})
