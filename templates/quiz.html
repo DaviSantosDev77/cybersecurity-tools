@@ -3,192 +3,193 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Simulado Tático PRF | Dev Davi</title>
-
+    <title>Simulado Tático PRF</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
     <style>
-        /* --- CORES --- */
         :root {
-            --prf-blue: #002244;
-            --prf-yellow: #FFCC00;
-            --text-dark: #222;
-            --bg-overlay: rgba(0, 10, 30, 0.94);
+            --bg-color: #0d1117;
+            --card-bg: #161b22;
+            --prf-yellow: #f1c40f;
+            --prf-blue: #003366;
+            --correct: #2ea043;
+            --wrong: #da3633;
+            --text: #c9d1d9;
         }
 
         body {
-            font-family: 'Segoe UI', Roboto, sans-serif;
-            margin: 0; padding: 0; color: var(--text-dark);
-            background: linear-gradient(var(--bg-overlay), var(--bg-overlay)), url('/static/fundo.jpg');
-            background-size: cover; background-position: center; background-attachment: fixed;
-            min-height: 100vh;
+            font-family: 'Segoe UI', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text);
+            margin: 0;
+            padding-bottom: 50px;
         }
 
-        header {
-            background: rgba(0, 34, 68, 0.98); color: white; padding: 15px 0;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.6); display: flex; align-items: center; justify-content: center;
-            border-bottom: 4px solid var(--prf-yellow); position: sticky; top: 0; z-index: 1000;
-        }
-        .header-logo { height: 55px; margin-right: 15px; filter: drop-shadow(0 0 5px rgba(255, 204, 0, 0.3)); }
-        .header-text { font-size: 22px; font-weight: 900; text-transform: uppercase; letter-spacing: 1px; }
-
-        .container { max-width: 850px; margin: 40px auto; padding: 0 20px; }
-
-        .questao-card {
-            background: #ffffff; border-radius: 8px; padding: 30px; margin-bottom: 30px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5); border-left: 6px solid var(--prf-yellow);
-            position: relative; overflow: hidden; animation: surgir 0.6s ease-out;
-        }
-        @keyframes surgir { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-
-        .questao-card::before {
-            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 4px;
-            background: linear-gradient(90deg, var(--prf-yellow), var(--prf-blue));
+        .placar-fixo {
+            background-color: var(--card-bg);
+            border-bottom: 3px solid var(--prf-yellow);
+            padding: 15px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
         }
 
-        .materia-tag { background-color: var(--prf-blue); color: var(--prf-yellow); padding: 5px 12px; border-radius: 4px; font-weight: bold; font-size: 12px; text-transform: uppercase; display: inline-block; margin-bottom: 15px; }
-        .enunciado { font-size: 18px; line-height: 1.5; margin-bottom: 25px; font-weight: 600; }
-
-        .btn-opcao {
-            display: block; width: 100%; padding: 15px 20px; margin: 10px 0;
-            background: #f8f9fa; border: 2px solid #e9ecef; border-radius: 6px;
-            text-align: left; cursor: pointer; font-size: 16px; color: #444; transition: all 0.2s;
+        .stats-box {
+            display: flex;
+            gap: 20px;
+            font-weight: bold;
+            font-size: 1.1rem;
         }
-        .btn-opcao:hover { border-color: var(--prf-blue); background-color: #eef2ff; color: var(--prf-blue); transform: translateX(5px); }
 
-        .feedback { margin-top: 25px; padding: 15px; border-radius: 6px; font-weight: 800; text-align: center; font-size: 18px; text-transform: uppercase; color: white; }
-        .correto { background-color: #2E7D32; border: 2px solid #1B5E20; }
-        .errado { background-color: #C62828; border: 2px solid #B71C1C; }
-
-        .explicacao-box { margin-top: 15px; background-color: #fffbe6; padding: 20px; border-radius: 6px; border-left: 4px solid var(--prf-yellow); font-size: 15px; color: #333; }
-
-        /* --- BOTÃO DA IA (ESTILO NOVO) --- */
-        .area-ia { text-align: center; margin-top: 20px; }
-        .btn-ia {
-            background: linear-gradient(135deg, #6200ea, #3700b3);
-            color: white; border: none; padding: 12px 25px; border-radius: 50px;
-            font-size: 14px; font-weight: bold; cursor: pointer;
-            box-shadow: 0 4px 15px rgba(98, 0, 234, 0.4); transition: transform 0.2s;
-            display: inline-flex; align-items: center; gap: 8px;
+        .stat-item {
+            padding: 5px 15px;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
-        .btn-ia:hover { transform: scale(1.05); background: linear-gradient(135deg, #7c4dff, #651fff); }
-        .resposta-ia {
-            background: #f3e5f5; border-left: 5px solid #6200ea; padding: 20px;
-            margin-top: 15px; border-radius: 8px; text-align: left; font-size: 15px; color: #333;
-            display: none; /* Começa escondido */
-            animation: fadeIn 0.5s;
-        }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-        /* RODAPÉ */
-        footer { text-align: center; padding: 50px 20px; color: rgba(255,255,255,0.8); }
-        .social-icons { display: flex; justify-content: center; gap: 20px; opacity: 0; transform: translateY(30px); transition: all 1s ease; }
-        .social-icons.visivel { opacity: 1; transform: translateY(0); }
-        .icon-btn {
-            display: flex; align-items: center; justify-content: center; width: 50px; height: 50px;
-            border-radius: 50%; border: 1px solid rgba(255, 255, 255, 0.3); color: white;
-            font-size: 22px; text-decoration: none; transition: all 0.3s ease; background: rgba(255, 255, 255, 0.05);
+        .stat-green { background-color: rgba(46, 160, 67, 0.2); color: var(--correct); border: 1px solid var(--correct); }
+        .stat-red { background-color: rgba(218, 54, 51, 0.2); color: var(--wrong); border: 1px solid var(--wrong); }
+
+        .btn-reset {
+            background: transparent;
+            border: 1px solid var(--text);
+            color: var(--text);
+            padding: 5px 10px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            transition: 0.3s;
         }
-        .icon-btn:hover { transform: translateY(-5px); border-color: white; box-shadow: 0 0 15px rgba(255, 255, 255, 0.5); }
-        .icon-btn.github:hover { background: #333; }
-        .icon-btn.linkedin:hover { background: #0077b5; }
-        .icon-btn.instagram:hover { background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%); border-color: transparent; }
+        .btn-reset:hover { background: #fff; color: #000; }
+
+        .container { max-width: 800px; margin: 20px auto; padding: 0 20px; }
+        
+        .header-img { text-align: center; margin: 20px 0; }
+        .header-img img { width: 100px; }
+
+        .card {
+            background-color: var(--card-bg);
+            border: 1px solid #30363d;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+        }
+
+        .materia-tag {
+            background-color: var(--prf-blue);
+            color: var(--prf-yellow);
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.8em;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .enunciado { font-size: 1.1em; margin: 15px 0; line-height: 1.5; }
+
+        .opcoes button {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            margin: 8px 0;
+            background-color: #21262d;
+            border: 1px solid #30363d;
+            color: var(--text);
+            text-align: left;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: 0.2s;
+            font-size: 1em;
+        }
+
+        .opcoes button:hover { background-color: #30363d; border-color: var(--prf-yellow); }
+
+        /* Feedbacks */
+        .feedback { padding: 15px; border-radius: 6px; margin-top: 15px; font-weight: bold; }
+        .feedback.sucesso { background-color: rgba(46, 160, 67, 0.2); border: 1px solid var(--correct); color: #4ade80; }
+        .feedback.erro { background-color: rgba(218, 54, 51, 0.2); border: 1px solid var(--wrong); color: #f87171; }
+
+        .btn-nova-bateria {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            background-color: var(--prf-yellow);
+            color: var(--prf-blue);
+            font-weight: bold;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 6px;
+            margin-top: 20px;
+            font-size: 1.2rem;
+            text-transform: uppercase;
+        }
     </style>
 </head>
 <body>
 
-    <header>
-        <img src="/static/logo.png" alt="Logo PRF" class="header-logo">
-        <div class="header-text">Sistema de Treinamento Tático</div>
-    </header>
+    <div class="placar-fixo">
+        <div class="stats-box">
+            <div class="stat-item stat-green">
+                <i class="fas fa-check-circle"></i> {{ acertos }}
+            </div>
+            <div class="stat-item stat-red">
+                <i class="fas fa-times-circle"></i> {{ erros }}
+            </div>
+        </div>
+        
+        <form method="POST" action="/">
+            <button type="submit" name="resetar" value="true" class="btn-reset">
+                <i class="fas fa-redo"></i> ZERAR PLACAR
+            </button>
+        </form>
+    </div>
 
     <div class="container">
-        {% for q in questoes %}
-        <div class="questao-card">
-            <span class="materia-tag">{{ q.materia }}</span>
-            <div class="enunciado">{{ q.enunciado }}</div>
-            
-            <form method="POST">
-                <input type="hidden" name="id_questao" value="{{ q.id }}">
-                {% for op in q.opcoes %}
-                <button type="submit" name="resposta" value="{{ op }}" class="btn-opcao">
-                    {{ op }}
-                </button>
-                {% endfor %}
-            </form>
+        <div class="header-img">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/13/Pol%C3%ADcia_Rodovi%C3%A1ria_Federal_bras%C3%A3o.svg/1200px-Pol%C3%ADcia_Rodovi%C3%A1ria_Federal_bras%C3%A3o.svg.png" alt="Brasão PRF">
+            <h2>SIMULADO OPERACIONAL</h2>
+        </div>
 
-            {% if resposta_atual and id_atual == q.id %}
-                <div class="feedback {% if acertou %}correto{% else %}errado{% endif %}">
-                    {% if acertou %}
-                        ✅ QSL! RESPOSTA CORRETA.
-                    {% else %}
-                        ❌ NEGATIVO! RESPOSTA INCORRETA.
-                    {% endif %}
-                </div>
+        {% for questao in questoes %}
+        <div class="card">
+            <span class="materia-tag">{{ questao.materia }}</span>
+            <p class="enunciado"><strong>{{ questao.id }}.</strong> {{ questao.enunciado }}</p>
 
-                {% if not acertou %}
-                <div class="area-ia">
-                    <button class="btn-ia" onclick="pedirAjudaIA('{{ q.enunciado }}', '{{ q.correta }}', '{{ q.materia }}', {{ q.id }})">
-                        <i class="fa-solid fa-robot"></i> PEDIR EXPLICAÇÃO TÁTICA (IA)
-                    </button>
-                    
-                    <div id="box-ia-{{ q.id }}" class="resposta-ia">
-                        <i class="fa-solid fa-circle-notch fa-spin"></i> Contactando a base... aguarde.
+            {% if id_atual == questao.id %}
+                
+                {% if acertou %}
+                    <div class="feedback sucesso">
+                        <i class="fas fa-check-circle"></i> RESPOSTA CORRETA!
+                        <br><small>{{ questao.explicacao }}</small>
                     </div>
-                </div>
+                {% else %}
+                    <div class="feedback erro">
+                        <i class="fas fa-times-circle"></i> RESPOSTA ERRADA!
+                        <br>Gabarito: <strong>{{ questao.correta }}</strong>
+                        <br><small>{{ questao.explicacao }}</small>
+                    </div>
                 {% endif %}
 
-                {% if q.explicacao %}
-                <div class="explicacao-box">
-                    <strong>👮‍♂️ Gabarito Oficial:</strong><br> {{ q.explicacao }}
-                </div>
-                {% endif %}
+            {% else %}
+                <form method="POST" action="/" class="opcoes">
+                    <input type="hidden" name="id_questao" value="{{ questao.id }}">
+                    {% for opcao in questao.opcoes %}
+                        <button type="submit" name="resposta" value="{{ opcao }}">{{ opcao }}</button>
+                    {% endfor %}
+                </form>
             {% endif %}
         </div>
         {% endfor %}
+
+        <a href="/nova_bateria" class="btn-nova-bateria">
+            <i class="fas fa-random"></i> GERAR NOVA BATERIA
+        </a>
     </div>
 
-    <footer>
-        <div style="margin-bottom: 25px; opacity: 0.7; font-size: 14px;">
-            DESENVOLVIDO POR <strong>DAVI PEREIRA</strong> | OPERAÇÕES DE SOC & DEV
-        </div>
-        <div class="social-icons" id="socialBox">
-            <a href="https://github.com/DaviSantosDev77" target="_blank" class="icon-btn github"><i class="fa-brands fa-github"></i></a>
-            <a href="https://www.linkedin.com/in/davi-santos-9b08792b3" target="_blank" class="icon-btn linkedin"><i class="fa-brands fa-linkedin-in"></i></a>
-            <a href="https://www.instagram.com/davii_hsantos/" target="_blank" class="icon-btn instagram"><i class="fa-brands fa-instagram"></i></a>
-        </div>
-    </footer>
-
-    <script>
-        // Animação do rodapé (Scroll)
-        const observador = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) document.getElementById('socialBox').classList.add('visivel');
-            });
-        });
-        observador.observe(document.getElementById('socialBox'));
-
-        // Função que chama o Python pra usar a API do Google
-        function pedirAjudaIA(pergunta, correta, materia, id) {
-            const box = document.getElementById(`box-ia-${id}`);
-            box.style.display = 'block'; // Mostra a caixa
-
-            // Manda os dados pro backend
-            fetch('/explicar_ia', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ pergunta: pergunta, correta: correta, materia: materia })
-            })
-            .then(response => response.json())
-            .then(data => {
-                // Coloca a resposta da IA na tela
-                box.innerHTML = "<strong>🤖 Instrutor IA:</strong><br>" + data.explicacao;
-            })
-            .catch(erro => {
-                console.error("Erro:", erro);
-                box.innerHTML = "❌ Falha na comunicação com o QG.";
-            });
-        }
-    </script>
 </body>
 </html>
