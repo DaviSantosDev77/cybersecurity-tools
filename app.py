@@ -4,8 +4,10 @@ import os
 
 app = Flask(__name__)
 
-app.secret_key = 'chave_secreta_placar_prf'
+# --- SENHA DA SESSÃO ---
+app.secret_key = 'prf-caveira-operacional-2025'
 
+# --- BANCO DE 50 QUESTÕES ---
 questoes = [
     {"id": 1, "materia": "LEGISLAÇÃO DE TRÂNSITO", "enunciado": "Condutor flagrado dirigindo sob influência de álcool (bafômetro acusou 0,40 mg/L). Qual a penalidade?", "opcoes": ["Multa (x5) e Retenção", "Multa (x10) e Suspensão da CNH", "Apenas Multa Grave", "Cassação direta"], "correta": "Multa (x10) e Suspensão da CNH", "explicacao": "Art. 165 CTB. Infração gravíssima, multa 10x e suspensão por 12 meses."},
     {"id": 2, "materia": "LEGISLAÇÃO DE TRÂNSITO", "enunciado": "Ultrapassar pela contramão em linha contínua amarela. Classificação:", "opcoes": ["Grave", "Gravíssima (x5)", "Gravíssima (x10)", "Média"], "correta": "Gravíssima (x5)", "explicacao": "Art. 203, V. Ultrapassagem proibida é Gravíssima x5."},

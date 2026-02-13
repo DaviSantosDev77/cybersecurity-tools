@@ -21,13 +21,14 @@
             background-color: var(--bg-color);
             color: var(--text);
             margin: 0;
-            padding-bottom: 50px;
+            padding-bottom: 20px;
         }
 
+        /* --- PLACAR FIXO --- */
         .placar-fixo {
             background-color: var(--card-bg);
             border-bottom: 3px solid var(--prf-yellow);
-            padding: 15px;
+            padding: 10px 20px;
             position: sticky;
             top: 0;
             z-index: 100;
@@ -37,158 +38,118 @@
             box-shadow: 0 4px 10px rgba(0,0,0,0.5);
         }
 
-        .stats-box {
-            display: flex;
-            gap: 20px;
-            font-weight: bold;
-            font-size: 1.1rem;
-        }
-
-        .stat-item {
-            padding: 5px 15px;
-            border-radius: 5px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
+        .stats-box { display: flex; gap: 15px; font-weight: bold; font-size: 1.1rem; }
+        .stat-item { padding: 5px 12px; border-radius: 5px; display: flex; align-items: center; gap: 8px; }
         .stat-green { background-color: rgba(46, 160, 67, 0.2); color: var(--correct); border: 1px solid var(--correct); }
         .stat-red { background-color: rgba(218, 54, 51, 0.2); color: var(--wrong); border: 1px solid var(--wrong); }
 
         .btn-reset {
-            background: transparent;
-            border: 1px solid var(--text);
-            color: var(--text);
-            padding: 5px 10px;
-            cursor: pointer;
-            font-size: 0.8rem;
-            transition: 0.3s;
+            background: transparent; border: 1px solid var(--text); color: var(--text);
+            padding: 5px 10px; cursor: pointer; font-size: 0.8rem; text-transform: uppercase;
         }
         .btn-reset:hover { background: #fff; color: #000; }
 
         .container { max-width: 800px; margin: 20px auto; padding: 0 20px; }
         
-        .header-img { text-align: center; margin: 20px 0; }
-        .header-img img { width: 100px; }
+        /* --- LOGO DA PRF --- */
+        .header-img { text-align: center; margin: 30px 0; }
+        .header-img img { 
+            width: 120px; 
+            filter: drop-shadow(0 0 10px rgba(241, 196, 15, 0.5)); 
+        }
+        .header-img h2 { color: #fff; margin-top: 10px; text-transform: uppercase; letter-spacing: 1px; }
 
         .card {
             background-color: var(--card-bg);
             border: 1px solid #30363d;
-            border-radius: 8px;
-            padding: 20px;
-            margin-bottom: 20px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+            border-left: 5px solid var(--prf-yellow);
+            border-radius: 5px;
+            padding: 25px;
+            margin-bottom: 25px;
         }
 
         .materia-tag {
-            background-color: var(--prf-blue);
-            color: var(--prf-yellow);
-            padding: 4px 8px;
-            border-radius: 4px;
-            font-size: 0.8em;
-            font-weight: bold;
-            text-transform: uppercase;
+            background-color: var(--prf-blue); color: var(--prf-yellow);
+            padding: 4px 10px; border-radius: 3px; font-size: 0.75em; font-weight: bold; text-transform: uppercase;
         }
 
-        .enunciado { font-size: 1.1em; margin: 15px 0; line-height: 1.5; }
+        .enunciado { font-size: 1.15em; margin: 20px 0; line-height: 1.6; color: #fff; }
 
         .opcoes button {
-            display: block;
-            width: 100%;
-            padding: 12px;
-            margin: 8px 0;
-            background-color: #21262d;
-            border: 1px solid #30363d;
-            color: var(--text);
-            text-align: left;
-            border-radius: 6px;
-            cursor: pointer;
-            transition: 0.2s;
-            font-size: 1em;
+            display: block; width: 100%; padding: 15px; margin: 10px 0;
+            background-color: #21262d; border: 1px solid #30363d; color: var(--text);
+            text-align: left; border-radius: 5px; cursor: pointer; transition: 0.2s; font-size: 1em;
         }
+        .opcoes button:hover { background-color: #30363d; border-color: var(--prf-yellow); transform: translateX(5px); }
 
-        .opcoes button:hover { background-color: #30363d; border-color: var(--prf-yellow); }
-
-        .feedback { padding: 15px; border-radius: 6px; margin-top: 15px; font-weight: bold; }
-        .feedback.sucesso { background-color: rgba(46, 160, 67, 0.2); border: 1px solid var(--correct); color: #4ade80; }
-        .feedback.erro { background-color: rgba(218, 54, 51, 0.2); border: 1px solid var(--wrong); color: #f87171; }
+        .feedback { padding: 20px; border-radius: 5px; margin-top: 20px; font-weight: bold; border-left: 5px solid; }
+        .feedback.sucesso { background-color: rgba(46, 160, 67, 0.1); border-color: var(--correct); color: #4ade80; }
+        .feedback.erro { background-color: rgba(218, 54, 51, 0.1); border-color: var(--wrong); color: #f87171; }
 
         .btn-nova-bateria {
-            display: block;
-            width: 100%;
-            padding: 15px;
-            background-color: var(--prf-yellow);
-            color: var(--prf-blue);
-            font-weight: bold;
-            text-align: center;
-            text-decoration: none;
-            border-radius: 6px;
-            margin-top: 20px;
-            font-size: 1.2rem;
-            text-transform: uppercase;
+            display: block; width: 100%; padding: 18px;
+            background-color: var(--prf-yellow); color: var(--prf-blue);
+            font-weight: 900; text-align: center; text-decoration: none; border-radius: 5px;
+            margin-top: 30px; font-size: 1.2rem; text-transform: uppercase;
+            box-shadow: 0 0 15px rgba(241, 196, 15, 0.4);
         }
+        .btn-nova-bateria:hover { background-color: #fff; }
+
+        /* --- RODAPÉ --- */
+        footer { margin-top: 60px; padding: 30px; text-align: center; border-top: 1px solid #30363d; color: #8b949e; }
+        .social-icons { font-size: 1.8rem; display: flex; justify-content: center; gap: 25px; margin-top: 10px; }
+        .social-icons a { color: var(--text); transition: 0.3s; }
+        .social-icons a:hover { color: var(--prf-yellow); transform: scale(1.2); }
     </style>
 </head>
 <body>
 
     <div class="placar-fixo">
         <div class="stats-box">
-            <div class="stat-item stat-green">
-                <i class="fas fa-check-circle"></i> {{ acertos }}
-            </div>
-            <div class="stat-item stat-red">
-                <i class="fas fa-times-circle"></i> {{ erros }}
-            </div>
+            <div class="stat-item stat-green"><i class="fas fa-check"></i> {{ acertos }}</div>
+            <div class="stat-item stat-red"><i class="fas fa-times"></i> {{ erros }}</div>
         </div>
-        
-        <form method="POST" action="/">
-            <button type="submit" name="resetar" value="true" class="btn-reset">
-                <i class="fas fa-redo"></i> ZERAR PLACAR
-            </button>
-        </form>
+        <form method="POST" action="/"><button type="submit" name="resetar" value="true" class="btn-reset"><i class="fas fa-redo"></i> Reset</button></form>
     </div>
 
     <div class="container">
         <div class="header-img">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/13/Pol%C3%ADcia_Rodovi%C3%A1ria_Federal_bras%C3%A3o.svg/1200px-Pol%C3%ADcia_Rodovi%C3%A1ria_Federal_bras%C3%A3o.svg.png" alt="Brasão PRF">
-            <h2>SIMULADO OPERACIONAL</h2>
-        </div>
-
+        <img src="{{ url_for('static', filename='logo.png') }}" alt="Brasão PRF">
+    
+        <h2>SISTEMA DE TREINAMENTO TÁTICO</h2>
+    </div>
         {% for questao in questoes %}
         <div class="card">
             <span class="materia-tag">{{ questao.materia }}</span>
             <p class="enunciado"><strong>{{ questao.id }}.</strong> {{ questao.enunciado }}</p>
 
             {% if id_atual == questao.id %}
-                
                 {% if acertou %}
-                    <div class="feedback sucesso">
-                        <i class="fas fa-check-circle"></i> RESPOSTA CORRETA!
-                        <br><small>{{ questao.explicacao }}</small>
-                    </div>
+                    <div class="feedback sucesso"><i class="fas fa-check-circle"></i> CORRETA!<br><small>{{ questao.explicacao }}</small></div>
                 {% else %}
-                    <div class="feedback erro">
-                        <i class="fas fa-times-circle"></i> RESPOSTA ERRADA!
-                        <br>Gabarito: <strong>{{ questao.correta }}</strong>
-                        <br><small>{{ questao.explicacao }}</small>
-                    </div>
+                    <div class="feedback erro"><i class="fas fa-times-circle"></i> ERRADA! Gabarito: {{ questao.correta }}<br><small>{{ questao.explicacao }}</small></div>
                 {% endif %}
-
             {% else %}
                 <form method="POST" action="/" class="opcoes">
                     <input type="hidden" name="id_questao" value="{{ questao.id }}">
                     {% for opcao in questao.opcoes %}
-                        <button type="submit" name="resposta" value="{{ opcao }}">{{ opcao }}</button>
+                        <button type="submit" name="resposta" value="{{ opcao }}"><i class="far fa-circle"></i> {{ opcao }}</button>
                     {% endfor %}
                 </form>
             {% endif %}
         </div>
         {% endfor %}
 
-        <a href="/nova_bateria" class="btn-nova-bateria">
-            <i class="fas fa-random"></i> GERAR NOVA BATERIA
-        </a>
-    </div>
+        <a href="/nova_bateria" class="btn-nova-bateria">NOVA BATERIA <i class="fas fa-arrow-right"></i></a>
 
+        <footer>
+            <div>Desenvolvido por Davi Pereira | Operações de SOC & DEV</div>
+            <div class="social-icons">
+                <a href="https://github.com/DaviSantosDev77" target="_blank"><i class="fab fa-github"></i></a>
+                <a href="https://linkedin.com/in/davi-santos-9b08792b3" target="_blank"><i class="fab fa-linkedin"></i></a>
+                <a href="https://instagram.com/seu_insta_aqui" target="_blank"><i class="fab fa-instagram"></i></a>
+            </div>
+        </footer>
+    </div>
 </body>
 </html>
